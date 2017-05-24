@@ -1,0 +1,22 @@
+﻿<Properties StartupConfiguration="{B57E0A73-80DB-461F-BB80-8F3EE7574DAB}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PlatformerGame/Model/Gem.cs">
+    <Files>
+      <File FileName="PlatformerGame/Model/Animation.cs" Line="56" Column="30" />
+      <File FileName="PlatformerGame/Model/AnimationPlayer.cs" Line="14" Column="31" />
+      <File FileName="PlatformerGame/Model/Circle.cs" Line="13" Column="31" />
+      <File FileName="PlatformerGame/Model/Enemy.cs" Line="14" Column="31" />
+      <File FileName="PlatformerGame/Model/Player.cs" Line="16" Column="31" />
+      <File FileName="PlatformerGame/Model/Gem.cs" Line="79" Column="79" />
+      <File FileName="PlatformerGame/Controller/PlatformerGame.cs" Line="19" Column="36" />
+      <File FileName="PlatformerGame/Controller/Program.cs" Line="14" Column="36" />
+      <File FileName="PlatformerGame/Model/Level.cs" Line="17" Column="37" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.ItemProperties.PlatformerGame PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>
