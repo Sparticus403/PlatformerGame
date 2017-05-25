@@ -15,6 +15,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using System.IO;
 using Microsoft.Xna.Framework.Input;
+using PlatformerGame.Controller;
 
 namespace PlatformerGame.Model
 {
@@ -27,7 +28,7 @@ namespace PlatformerGame.Model
     {
         // Physical structure of the level.
         private Tile[,] tiles;
-        private Texture2D[] layers;
+        private Layer[] layers;
         // The layer which entities are drawn on top of.
         private const int EntityLayer = 2;
 
@@ -47,6 +48,7 @@ namespace PlatformerGame.Model
         private static readonly Point InvalidPosition = new Point(-1, -1);
 
         // Level game state.
+        private float cameraPosition;
         private Random random = new Random(354668); // Arbitrary, but constant seed
 
         public int Score
@@ -98,15 +100,20 @@ namespace PlatformerGame.Model
 
             LoadTiles(fileStream);
 
-            // Load background layer textures. For now, all levels must
-            // use the same backgrounds and only use the left-most part of them.
-            layers = new Texture2D[3];
-            for (int i = 0; i < layers.Length; ++i)
-            {
-                // Choose a random segment if each background layer for level variety.
-                int segmentIndex = levelIndex;
-                layers[i] = Content.Load<Texture2D>("Backgrounds/Layer" + i + "_" + segmentIndex);
-            }
+			// Load background layer textures. For now, all levels must
+			// use the same backgrounds and only use the left-most part of them.
+
+			layers = new Layer[3];
+			layers[0] = new Layer(Content, "Backgrounds/Layer0", 0.2f);
+			layers[1] = new Layer(Content, "Backgrounds/Layer1", 0.5f);
+			layers[2] = new Layer(Content, "Backgrounds/Layer2", 0.8f);
+            //layers = new Texture2D[3];
+            //for (int i = 0; i < layers.Length; ++i)
+            //{
+            //    // Choose a random segment if each background layer for level variety.
+            //    int segmentIndex = levelIndex;
+            //    layers[i] = Content.Load<Texture2D>("Backgrounds/Layer" + i + "_" + segmentIndex);
+            //}
 
             // Load sounds.
             exitReachedSound = Content.Load<SoundEffect>("Sounds/ExitReached");
@@ -497,41 +504,82 @@ namespace PlatformerGame.Model
             Player.Reset(start);
         }
 
-        #endregion
+		#endregion
 
-        #region Draw
+		#region Draw
 
-        /// <summary>
-        /// Draw everything in the level from background to foreground.
-        /// </summary>
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-        {
-            for (int i = 0; i <= EntityLayer; ++i)
-                spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
+		/// <summary>
+		/// Draw everything in the level from background to foreground.
+		/// </summary>
+		public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+		{
+			spriteBatch.Begin();
+			for (int i = 0; i <= EntityLayer; ++i)
+				layers[i].Draw(spriteBatch, cameraPosition);
+			spriteBatch.End();
 
-            DrawTiles(spriteBatch);
+			ScrollCamera(spriteBatch.GraphicsDevice.Viewport);
+			Matrix cameraTransform = Matrix.CreateTranslation(-cameraPosition, 0.0f, 0.0f);
+			spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None, cameraTransform);
 
-            foreach (Gem gem in gems)
-                gem.Draw(gameTime, spriteBatch);
+			DrawTiles(spriteBatch);
 
-            Player.Draw(gameTime, spriteBatch);
+			foreach (Gem gem in gems)
+				gem.Draw(gameTime, spriteBatch);
 
-            foreach (Enemy enemy in enemies)
-                enemy.Draw(gameTime, spriteBatch);
+			Player.Draw(gameTime, spriteBatch);
 
-            for (int i = EntityLayer + 1; i < layers.Length; ++i)
-                spriteBatch.Draw(layers[i], Vector2.Zero, Color.White);
-        }
+			foreach (Enemy enemy in enemies)
+				enemy.Draw(gameTime, spriteBatch);
+
+			spriteBatch.End();
+
+			spriteBatch.Begin();
+			for (int i = EntityLayer + 1; i < layers.Length; ++i)
+				layers[i].Draw(spriteBatch, cameraPosition);
+			spriteBatch.End();
+		}
+
+		private void ScrollCamera(Viewport viewport)
+		{
+#if ZUNE
+const float ViewMargin = 0.45f;
+#else
+			const float ViewMargin = 0.35f;
+#endif
+
+			// Calculate the edges of the screen.
+			float marginWidth = viewport.Width * ViewMargin;
+			float marginLeft = cameraPosition + marginWidth;
+			float marginRight = cameraPosition + viewport.Width - marginWidth;
+
+			// Calculate how far to scroll when the player is near the edges of the screen.
+			float cameraMovement = 0.0f;
+			if (Player.Position.X < marginLeft)
+				cameraMovement = Player.Position.X - marginLeft;
+			else if (Player.Position.X > marginRight)
+				cameraMovement = Player.Position.X - marginRight;
+
+			// Update the camera position, but prevent scrolling off the ends of the level.
+			float maxCameraPosition = Tile.Width * Width - viewport.Width;
+			cameraPosition = MathHelper.Clamp(cameraPosition + cameraMovement, 0.0f, maxCameraPosition);
+		}
 
         /// <summary>
         /// Draws each tile in the level.
         /// </summary>
         private void DrawTiles(SpriteBatch spriteBatch)
         {
+
+			// Calculate the visible range of tiles.
+			int left = (int)Math.Floor(cameraPosition / Tile.Width);
+			int right = left + spriteBatch.GraphicsDevice.Viewport.Width / Tile.Width;
+			right = Math.Min(right, Width - 1);
+
             // For each tile position
             for (int y = 0; y < Height; ++y)
             {
-                for (int x = 0; x < Width; ++x)
+                for (int x = left; x <= right; ++x)
                 {
                     // If there is a visible tile in that position
                     Texture2D texture = tiles[x, y].Texture;
