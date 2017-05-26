@@ -38,8 +38,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\Animation.cs" />
-    <Compile Include="Model\AnimationPlayer.cs" />
     <Compile Include="Model\Circle.cs" />
     <Compile Include="Model\Enemy.cs" />
     <Compile Include="Model\Gem.cs" />
@@ -50,6 +48,8 @@
     <Compile Include="Model\RectangleExtensions.cs" />
     <Compile Include="Model\Tile.cs" />
     <Compile Include="Model\Layer.cs" />
+    <Compile Include="Model\Animation.cs" />
+    <Compile Include="Model\AnimationPlayer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />

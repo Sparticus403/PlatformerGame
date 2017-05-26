@@ -107,13 +107,6 @@ namespace PlatformerGame.Model
 			layers[0] = new Layer(Content, "Backgrounds/Layer0", 0.2f);
 			layers[1] = new Layer(Content, "Backgrounds/Layer1", 0.5f);
 			layers[2] = new Layer(Content, "Backgrounds/Layer2", 0.8f);
-            //layers = new Texture2D[3];
-            //for (int i = 0; i < layers.Length; ++i)
-            //{
-            //    // Choose a random segment if each background layer for level variety.
-            //    int segmentIndex = levelIndex;
-            //    layers[i] = Content.Load<Texture2D>("Backgrounds/Layer" + i + "_" + segmentIndex);
-            //}
 
             // Load sounds.
             exitReachedSound = Content.Load<SoundEffect>("Sounds/ExitReached");
@@ -520,7 +513,8 @@ namespace PlatformerGame.Model
 
 			ScrollCamera(spriteBatch.GraphicsDevice.Viewport);
 			Matrix cameraTransform = Matrix.CreateTranslation(-cameraPosition, 0.0f, 0.0f);
-			spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None, cameraTransform);
+            //spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.None, cameraTransform);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, null, null, null, null, cameraTransform);
 
 			DrawTiles(spriteBatch);
 
