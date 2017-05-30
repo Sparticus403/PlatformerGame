@@ -50,6 +50,8 @@
     <Compile Include="Model\Layer.cs" />
     <Compile Include="Model\Animation.cs" />
     <Compile Include="Model\AnimationPlayer.cs" />
+    <Compile Include="Model\Weapon.cs" />
+    <Compile Include="Model\Projectile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" />
