@@ -42,6 +42,8 @@ namespace PlatformerGame.Model
         private List<Gem> gems = new List<Gem>();
         private List<Enemy> enemies = new List<Enemy>();
 
+        private List<Weapon> weapons = new List<Weapon>();
+
         // Key locations in the level.        
         private Vector2 start;
         private Point exit = InvalidPosition;
@@ -185,6 +187,9 @@ namespace PlatformerGame.Model
                 // Exit
                 case 'X':
                     return LoadExitTile(x, y);
+                
+                case 'W':
+                    return LoadWeaponTile(x, y);
 
                 // Gem
                 case 'G':
@@ -307,6 +312,14 @@ namespace PlatformerGame.Model
             gems.Add(new Gem(this, new Vector2(position.X, position.Y)));
 
             return new Tile(null, TileCollision.Passable);
+        }
+
+        private Tile LoadWeaponTile(int x, int y)
+        {
+            Point position = GetBounds(x, y).Center;
+            weapons.Add(new Weapon(this, new Vector2(position.X, position.Y)));
+
+            return new Tile(null, TileCollision.Passable); 
         }
 
         /// <summary>
@@ -438,6 +451,11 @@ namespace PlatformerGame.Model
             }
         }
 
+        private void UpdateWeapons(GameTime gameTime)
+        {
+            
+        }
+
         /// <summary>
         /// Animates each enemy and allow them to kill the player.
         /// </summary>
@@ -465,6 +483,11 @@ namespace PlatformerGame.Model
             score += Gem.PointValue;
 
             gem.OnCollected(collectedBy);
+        }
+
+        private void OnWeaponCollected(Weapon weapon, Player collectedBy)
+        {
+            
         }
 
         /// <summary>

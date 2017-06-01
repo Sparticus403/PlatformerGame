@@ -74,3 +74,6 @@
 /Users/twil8980/Projects/PlatformerGame/PlatformerGame/obj/x86/Debug/PlatformerGame.csproj.CoreCompileInputs.cache
 /Users/twil8980/Projects/PlatformerGame/PlatformerGame/obj/x86/Debug/PlatformerGame.exe
 /Users/twil8980/Projects/PlatformerGame/PlatformerGame/obj/x86/Debug/PlatformerGame.pdb
+/Users/twil8980/Projects/PlatformerGame/PlatformerGame/bin/Debug/Content/Sprites/Weapon.xnb
+/Users/twil8980/Projects/PlatformerGame/PlatformerGame/bin/Debug/Content/Backgrounds/SpaceLayer0_0.xnb
+/Users/twil8980/Projects/PlatformerGame/PlatformerGame/bin/Debug/Content/Backgrounds/SpaceLayer0_1.xnb
