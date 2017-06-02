@@ -1,18 +1,1 @@
-﻿<Properties StartupConfiguration="{B57E0A73-80DB-461F-BB80-8F3EE7574DAB}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="PlatformerGame/Model/Weapon.cs">
-    <Files>
-      <File FileName="PlatformerGame/Model/Level.cs" Line="320" Column="13" />
-      <File FileName="PlatformerGame/Model/Weapon.cs" Line="21" Column="22" />
-      <File FileName="PlatformerGame/Model/Projectile.cs" Line="28" Column="35" />
-      <File FileName="PlatformerGame/Model/Gem.cs" Line="116" Column="10" />
-      <File FileName="PlatformerGame/Model/Layer.cs" Line="22" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
-  <MonoDevelop.Ide.ItemProperties.PlatformerGame PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-</Properties>
+﻿<Properties />
